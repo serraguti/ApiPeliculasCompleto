@@ -1,7 +1,10 @@
+using ApiPeliculasCompleto.Data;
+using ApiPeliculasCompleto.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,7 +29,11 @@ namespace ApiPeliculasCompleto
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            string cadena =
+                this.Configuration.GetConnectionString("cadenapeliculas");
+            services.AddTransient<RepositoryPeliculas>();
+            services.AddDbContext<PeliculasContext>
+                (options => options.UseSqlServer(cadena));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -40,9 +47,18 @@ namespace ApiPeliculasCompleto
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ApiPeliculasCompleto v1"));
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(
+                c => {
+                    c.SwaggerEndpoint
+                        ("/swagger/v1/swagger.json", "ApiPeliculasCompleto v1");
+                    c.RoutePrefix = "";
+                });
+
+
+                
 
             app.UseHttpsRedirection();
 
