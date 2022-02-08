@@ -1,4 +1,5 @@
 using ApiPeliculasCompleto.Data;
+using ApiPeliculasCompleto.Helpers;
 using ApiPeliculasCompleto.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,6 +35,11 @@ namespace ApiPeliculasCompleto
             services.AddTransient<RepositoryPeliculas>();
             services.AddDbContext<PeliculasContext>
                 (options => options.UseSqlServer(cadena));
+            HelperOAuthToken helper = new HelperOAuthToken(this.Configuration);
+            services.AddTransient<HelperOAuthToken>
+                (x => helper);
+            services.AddAuthentication(helper.GetAuthOptions())
+                .AddJwtBearer(helper.GetJwtOptions());
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -60,7 +66,7 @@ namespace ApiPeliculasCompleto
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
