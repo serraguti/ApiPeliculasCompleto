@@ -57,9 +57,6 @@ namespace ApiPeliculasCompleto
                     c.RoutePrefix = "";
                 });
 
-
-                
-
             app.UseHttpsRedirection();
 
             app.UseRouting();

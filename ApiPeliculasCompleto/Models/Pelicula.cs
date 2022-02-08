@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ApiPeliculasCompleto.Models
 {
-    [Table("PELICULA")]
+    [Table("PELICULAS")]
     public class Pelicula
     {
         [Key]
@@ -21,8 +21,8 @@ namespace ApiPeliculasCompleto.Models
         public string Argumento { get; set; }
         [Column("FOTO")]
         public string Foto { get; set; }
-        [Column("FECHA")]
-        public DateTime Fecha { get; set; }
+        [Column("FECHA_ESTRENO")]
+        public DateTime FechaEstreno { get; set; }
         [Column("ACTORES")]
         public string Actores { get; set; }
         [Column("PRECIO")]

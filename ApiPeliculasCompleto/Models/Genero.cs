@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ApiPeliculasCompleto.Models
 {
-    [Table("GENERO")]
+    [Table("GENEROS")]
     public class Genero
     {
         [Key]

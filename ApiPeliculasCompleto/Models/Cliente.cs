@@ -19,7 +19,7 @@ namespace ApiPeliculasCompleto.Models
         public string Email { get; set; }
         [Column("PAGINAWEB")]
         public string PaginaWeb { get; set; }
-        [Column("IMAGEN")]
+        [Column("IMAGEN_CLIENTE")]
         public string Imagen { get; set; }
     }
 }
